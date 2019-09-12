@@ -17,13 +17,13 @@
 #include <time.h>
 #include <stdlib.h>
 #include "headers.h"
-#include <stdint.h>  
+#include <stdint.h>
 
 int sock_packet, iface = 2;  /* Socket descripter & transmit interface index */
 struct sockaddr_ll ll = {0}; /* Socket address structure */
 uint16_t vlan = 0;
 uint8_t l3_tos = 0;
-uint16_t l2_hdr_size = 14;sdfsdf
+uint16_t l2_hdr_size = 14;
 uint16_t l3_hdr_size = 20;
 uint16_t l4_hdr_size = 8;
 uint16_t dhcp_hdr_size = sizeof(struct dhcpv4_hdr);
