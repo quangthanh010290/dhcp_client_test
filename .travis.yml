@@ -1,0 +1,12 @@
+language: c
+before_install:
+  - echo -e "before install"
+install:  
+  - echo -e "install"
+script:
+  - make clean
+  - make
+notifications:
+  email:
+    on_success: change
+    on_failure: chang
