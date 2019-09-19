@@ -827,6 +827,7 @@ int build_option54()
 
 /*
  * Builds DHCP option55 on dhopt_buff
+ * add option 125
  */
 int build_option55()
 {
@@ -841,7 +842,6 @@ int build_option55()
     msg[5] = DHCP_BROADCASTADDR;
     msg[6] = DHCP_NISTIMESERV;
     msg[7] = DHCP_125;
-    /* msg[5] = DHCP_LOGSERV; */
 
     memcpy((dhopt_buff + dhopt_size), &msgtype, 1);
     memcpy((dhopt_buff + dhopt_size + 1), &msglen, 1);
@@ -936,7 +936,6 @@ int build_custom_dhcp_options()
         {
             memcpy((dhopt_buff + dhopt_size + 2), custom_dhcp_options[option_index].option_value, msglen);
         }
-        //memcpy((dhopt_buff + dhopt_size + 2), hostname_buff, strlen((const char *) hostname_buff));
 
         dhopt_size = dhopt_size + 2 + msglen;
     }
@@ -949,7 +948,7 @@ int build_custom_dhcp_options()
  */
 int build_optioneof()
 {
-    uint8_t eof = 0xff;
+    uint8_t eof = DHCP_END;
     memcpy((dhopt_buff + dhopt_size), &eof, 1);
     dhopt_size = dhopt_size + 1;
     return 0;

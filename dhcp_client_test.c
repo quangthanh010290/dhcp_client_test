@@ -1,7 +1,7 @@
 /*
- * DHCP client simulation tool. For testing pursose only.
- * This program needs to be run with root privileges.
- * Author - Saravanakumar.G E-mail: saravana815@gmail.com
+ *DHCP client simulation tool. For testing pursose only.
+ *This program needs to be run with root privileges.
+ *Author: thanh le: quangthanh01290@gmail.com
  */
 
 #include <stdio.h>
@@ -27,6 +27,7 @@ uint16_t l2_hdr_size = 14;
 uint16_t l3_hdr_size = 20;
 uint16_t l4_hdr_size = 8;
 uint16_t dhcp_hdr_size = sizeof(struct dhcpv4_hdr);
+int loop_num = 0;
 
 /* All protocheader sizes */
 
@@ -110,6 +111,7 @@ void print_help(char *cmd)
 {
     fprintf(stdout, "Usage: %s [ options ]\n", cmd);
     fprintf(stdout, "  -m mac_address\n");
+    fprintf(stdout, "  -M, --mac_num number of mac address\n");
     fprintf(stdout, "  -N\t\t\t\t\t# always use interface's MAC address in Ethernet frame\n");
     fprintf(stdout, "  -r, --release\t\t\t\t# Releases obtained DHCP IP for corresponding MAC\n");
     fprintf(stdout, "  -L, --option51-lease_time [ Lease_time ] # Option 51. Requested lease time in secondes\n");
@@ -139,7 +141,10 @@ void print_help(char *cmd)
     fprintf(stdout, "  -V, --verbose\t\t\t\t# Prints DHCP offer and ack details\n");
     fprintf(stdout, "  dhtest version 1.5\n");
 }
+void send_dhcp_pkg(char *if_name, char *mac_start, int mac_num)
+{
 
+}
 int main(int argc, char *argv[])
 {
     int get_tmp = 1, get_cmd;
@@ -154,6 +159,7 @@ int main(int argc, char *argv[])
     static struct option long_options[] =
         {
             {"mac", required_argument, 0, 'm'},
+            {"mac_num", required_argument, 0, 'M'},
             {"strict-mac", no_argument, 0, 'N'},
             {"interface", required_argument, 0, 'i'},
             {"vlan", required_argument, 0, 'v'},
@@ -186,7 +192,7 @@ int main(int argc, char *argv[])
     /*getopt routine to get command line arguments*/
     while (get_tmp < argc)
     {
-        get_cmd = getopt_long(argc, argv, "m:i:v:t:bfVrpanNsjDu::T:P:g:S:I:o:k:L:h:d:c:", long_options, &option_index);
+        get_cmd = getopt_long(argc, argv, "m:M:i:v:t:bfVrpanNsjDu::T:P:g:S:I:o:k:L:h:d:c:", long_options, &option_index);
         if (get_cmd == -1)
         {
             break;
@@ -211,7 +217,10 @@ int main(int argc, char *argv[])
             dhmac_flag = 1;
         }
         break;
-
+        case 'M':
+            loop_num = atoi(optarg);
+            printf("gia tri: %d\n", loop_num);
+            break;
         case 'i':
             iface = if_nametoindex(optarg);
             if (iface == 0)
@@ -721,9 +730,9 @@ int main(int argc, char *argv[])
     build_dhpacket(DHCP_MSGDISCOVER); /* Build DHCP discover packet */
 
     int dhcp_offer_state = 0;
+    /*start sending packet*/
     while (dhcp_offer_state != DHCP_OFFR_RCVD)
     {
-
         /* Sends DHCP discover packet */
         send_packet(DHCP_MSGDISCOVER);
         /*
