@@ -1,7 +1,7 @@
 /*
- *DHCP client simulation tool. For testing pursose only.
- *This program needs to be run with root privileges.
- *Author: thanh le: quangthanh01290@gmail.com
+ * DHCP client simulation tool. For testing pursose only.
+ * This program needs to be run with root privileges.
+ * Author - me@thanhle.me
  */
 
 #include <stdio.h>
