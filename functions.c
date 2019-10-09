@@ -832,8 +832,9 @@ int build_option54()
 int build_option55()
 {
     uint32_t msgtype = DHCP_PARAMREQUEST;
-    uint32_t msglen = 8;
-    uint8_t msg[8] = {0};
+#define MSG_LEN 9
+    uint32_t msglen = 9;
+    uint8_t msg[9] = {0};
     msg[0] = DHCP_SUBNETMASK;
     msg[1] = DHCP_ROUTER;
     msg[2] = DHCP_DOMAINNAME;
@@ -841,12 +842,13 @@ int build_option55()
     msg[4] = DHCP_DOMAINNAME;
     msg[5] = DHCP_BROADCASTADDR;
     msg[6] = DHCP_NISTIMESERV;
-    msg[7] = DHCP_125;
+    msg[7] = DHCP_CLIENTID;
+    msg[MSG_LEN-1] = DHCP_125;
 
     memcpy((dhopt_buff + dhopt_size), &msgtype, 1);
     memcpy((dhopt_buff + dhopt_size + 1), &msglen, 1);
-    memcpy((dhopt_buff + dhopt_size + 2), msg, 8);
-    dhopt_size = dhopt_size + 10;
+    memcpy((dhopt_buff + dhopt_size + 2), msg, MSG_LEN);
+    dhopt_size = dhopt_size + MSG_LEN + 2;
     return 0;
 }
 
