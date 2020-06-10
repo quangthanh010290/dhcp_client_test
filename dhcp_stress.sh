@@ -1,3 +1,11 @@
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YEL='\033[0;33m'
+BLUE='\033[0;34m'
+PUR='\033[0;35m'
+COL='\033[0;36m'
+NC='\033[0m' # No Color
+HERE="`pwd`"
 IF="eth1"
 MAC="00:00:00:00:82:bf"
 while true 
