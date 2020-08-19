@@ -10,3 +10,9 @@ clean:
 	@rm -rf 00:60:2F*
 $(TARGET): $(OBJECTS)
 	$(CC) $(CFLAGS) -o $@ $(OBJECTS) $(LDFLAGS)
+install: all
+	# @install -d $(DESTDIR)/$(PREFIX)/lib/
+	@cp $(SO_TARGET) $(DESTDIR)/$(PREFIX)/usr/bin/$(TARGET)
+uninstall:
+	@rm $(SO_TARGET) $(DESTDIR)/$(PREFIX)/usr/bin/$(TARGET)
+
