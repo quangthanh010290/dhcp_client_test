@@ -8,12 +8,12 @@ NC='\033[0m' # No Color
 HERE="`pwd`"
 # Change IF to the real interface on your PC
 IF="eth1"
-while true 
+while true
 do
 	hexchars="0123456789ABCDEF"
 	end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/:\1/g' )
 	MAC="00:60:2F$end"
 	echo -e "${GREEN}$MAC${NC}"
-	sudo ./dhcp_client_test -m ${MAC} -i ${IF}
+	sudo dhcp_client_test -m ${MAC} -i ${IF}
 	sleep 3
 done

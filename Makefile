@@ -12,7 +12,7 @@ $(TARGET): $(OBJECTS)
 	$(CC) $(CFLAGS) -o $@ $(OBJECTS) $(LDFLAGS)
 install: all
 	# @install -d $(DESTDIR)/$(PREFIX)/lib/
-	@cp $(TARGET) $(DESTDIR)/$(PREFIX)/usr/bin/
+	@mv $(TARGET) $(DESTDIR)/$(PREFIX)/usr/bin/
 uninstall:
 	@rm  $(DESTDIR)/$(PREFIX)/usr/bin/$(TARGET)
 

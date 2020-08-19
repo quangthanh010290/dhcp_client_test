@@ -1,7 +1,7 @@
 #!/bin/bash
 IF="wlan0"
 MAC="`cat /sys/class/net/${IF}/address`"
-echo "dhcp_client_test -m ${MAC} -i ${IF}}"
+echo "CMD: dhcp_client_test -m ${MAC} -i ${IF}"
 case "${1}" in
 "")
     sudo dhcp_client_test -m ${MAC} -i ${IF}
